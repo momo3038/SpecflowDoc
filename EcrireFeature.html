@@ -1,0 +1,23 @@
+<p>Ecrire une nouvelle fonctionnalité</p>
+<form role="form">
+    <div class="form-group">
+        <label for="titreFeature">Titre de la fonctionnalité *</label>
+        <input type="texte" class="form-control" id="titreFeature" required>
+    </div>
+    <div class="form-group">
+        <label for="descriptionFeature">Description</label>
+        <input type="text" class="form-control" id="descriptionFeature" required>
+        <span class="help-block">Le titre doit être court et doit être sous la forme "En tant que X, je souhaite Y  pour Z"</span>
+    </div>
+    <button type="submit" class="btn btn-default">Enregistrer cette fonctionnalité</button>
+</form>
+<form role="form" ng-submit="addTag()">
+    <div class="form-group">
+        <label for="tagFeature">Tags</label>
+        <input type="text" ng-model="tagText" typeahead="tag for tag in tagList | filter:$viewValue | limitTo:8" class="form-control" id="tagFeature" placeholder="Ajouter un tag">
+        <input type="submit" class="btn btn-default" value="Ajouter" />
+        <ul>
+            <li ng-repeat="featureTag in featureTags">{{featureTag}}</li>
+        </ul>
+    </div>
+</form>

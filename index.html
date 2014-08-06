@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="fr" ng-app="specflowApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Documentation</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.11/angular.js" data-semver="1.2.11"></script>
+    <script data-require="angular-route@1.2.10" data-semver="1.2.10" src="http://code.angularjs.org/1.2.10/angular-route.js"></script>
+    <script data-require="angular-resource@1.2.10" data-semver="1.2.10" src="http://code.angularjs.org/1.2.10/angular-resource.js"></script>
+    <script data-require="ui-bootstrap@0.10.0" data-semver="0.10.0" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/services.js"></script>
+    <link rel="stylesheet" href="css/abn_tree.css">
+
+    </head>
+<body style="" ng-controller="ListeFeatureCtrl">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ol class="breadcrumb">
+                <li><a href="#">Documentation</a></li>
+                    <li ng-repeat="chemin in Ariane track by $index" ng-class="{'active' : $last}">{{chemin}}</li>
+                </ol>
+
+                <!--<a class="navbar-brand" href="#">Documentation</a> <span class=="navbar-brand">{{Ariane}}</span>!-->
+            </div>
+            <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" ng-click="OuvrirSettings()">Settings</a></li>
+            <li><a href="#" ng-click="OuvrirAbout()">About</a></li>
+          </ul>
+                <form class="navbar-form navbar-right" role="form">
+                    <div class="form-group">
+                        <input type="text" width="500px" placeholder="@tag ou libellé" class="form-control" ng-model="selected" typeahead="feature.Feature.Name for feature in features | filter:$viewValue | limitTo:8"/>
+                    </div>
+                    <button type="submit" class="btn btn-default">Go !</button>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                 <abn-tree tree-data="MenuItems" on-select="Menu_handler(branch)" initial-selection="Garantie.Versement"></abn-tree>
+<!--                  <li ng-repeat="feature in features | filter:query | orderBy:orderProp">
+                        <a href="#/Documentation/{{feature.Feature.Name}}">{{feature.Feature.Name}}</a>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div ng-view=""></div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+</body>
+</html>

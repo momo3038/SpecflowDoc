@@ -1,0 +1,76 @@
+    <h1 class="page-header">{{feature.Feature.Name}}</h1>
+
+    <button class="btn btn-default btn-sm" ng-click="status.openAll = !status.openAll" >{{ status.openAll && 'Fermer' || 'Ouvrir'}} les cas de tests</button>
+    <div class="row placeholders">
+        <blockquote>
+            <p>{{feature.Feature.Description}}</p>
+        </blockquote>
+         <div ng-repeat="elem in feature.Feature.FeatureElements">
+            <ul class="list-inline">
+                <li ng-repeat="tag in elem.Tags">
+                    <a href="#" tooltip="Rechercher tous les scénarios marqué {{tag}}"><kbd>{{tag}}</kbd></a>
+                </li>
+            </ul>
+             <accordion close-other="false">
+                <accordion-group is-open="status.open || status.openAll">
+                <accordion-heading>
+                  {{elem.Name}} 
+                  <!-- <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': (status.open), 'glyphicon-chevron-right': (!status.open || !status.openAll)}"></i> -->
+                    </accordion-heading>
+                                   {{elem.Description}}
+                        <div ng-repeat="step in elem.Steps" > <span ng-class="{ stepTitle:step.NativeKeyword == 'Given ' || step.NativeKeyword == 'When ' || step.NativeKeyword == 'Then '}" >{{step.NativeKeyword}}</span>{{step.Name}} 
+               <table style="margin-left:15px; margin-top:10px" class="table table-condensed table-striped table-bordered table-hover" >
+                        <thead>
+                            <tr>
+                                <th ng-repeat="headerRow in step.TableArgument.HeaderRow">{{headerRow}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr ng-repeat="data in step.TableArgument.DataRows">
+                                    <td ng-repeat="value in data track by $index"><i>{{value}}</i></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                    </div>
+
+    <div ng-repeat="example in elem.Examples" >
+    <p><b>Examples</b></p>
+    <p>{{example.Name}}</p>
+    <p>{{example.description}}</p>
+                               <table style="margin-left:15px; margin-top:10px" class="table table-condensed table-striped table-bordered table-hover" >
+                        <thead>
+                            <tr>
+                                <th ng-repeat="headerRow in example.TableArgument.HeaderRow">{{headerRow}}</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                                <tr ng-repeat="data in example.TableArgument.DataRows">
+                                    <td ng-repeat="value in data track by $index"><i>{{value}}</i></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                    </div>
+                </accordion-group>
+             </accordion>
+        <!--     <div class="highlight">
+                <ul class="list-unstyled">
+                    <li ng-repeat="step in elem.Steps">
+                        <p>{{step.Keyword}} {{step.Name}}</p>
+                        <table class="table table-hover  table-condensed" ng-repeat="header in step.TableArgument.HeaderRow">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="header in step.TableArgument.HeaderRow">{{header}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in step.TableArgument.DataRows">
+                                    <td ng-repeat="value in data">{{value}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+       <!--  <pre>{{ feature | json }}</pre>  -->
+    </div>

@@ -1,0 +1,12 @@
+﻿        Sort by:
+<select ng-model="orderProp">
+    <option value="Feature.Name">Alphabetical</option>
+    <option value="Feature.Description">Newest</option>
+</select>
+
+<ul class="features">
+    <li ng-repeat="feature in features | filter:query | orderBy:orderProp">
+        <a href="#/Documentation/{{feature.Feature.Name}}">{{feature.Feature.Name}}</a>
+        <!-- <p>{{feature.Feature.Description}}</p>-->
+    </li>
+</ul>
