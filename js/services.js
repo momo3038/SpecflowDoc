@@ -6,7 +6,7 @@
  services.factory('Fonctionnalites', ['$http', '$log', '$q',
  	function($http, $log, $q) {
  		$log.info("Début du chargement du fichier JSON");
- 		var nomDuFichier = 'pickledFeatures.json';
+ 		var nomDuFichier = 'json/test.json';
 
  		return {
  			RecupererLesFeatures: function() {
