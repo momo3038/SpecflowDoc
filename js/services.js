@@ -25,13 +25,20 @@
  			RecupererFilAriane: function(feature) {
  				$log.info("Ariane : " + feature.RelativeFolder);
  				return feature.RelativeFolder;
+ 			},
+ 			GenererLeTableauParName: function(features){
+ 				var featuresByName = [];
+ 				angular.forEach(features, function(value, key) {
+					featuresByName.push(value.Feature.Name);
+ 				});
+ 				return featuresByName;
  			}
  		}
  	}
  ]);
 
- services.factory('Menu', ['$window',
- 	function($win) {
+ services.factory('Menu', ['$window','$location',
+ 	function($win, $location) {
 
  		var AddItemToMenu = function(titre, titrePourUrl, avecUrl) {
  			if (avecUrl) {
@@ -39,7 +46,7 @@
  					label: titrePourUrl,
  					children: [],
  					data: {
- 						url: "/#/Documentation/" + titrePourUrl,
+ 						url: "/Documentation/" + titrePourUrl,
  						titreDuFichier: titre
  					}
  				};
@@ -66,7 +73,8 @@
  			RedirectToFeature: function(branch) {
  				var _ref;
  				if ((_ref = branch.data) != null ? _ref.url : void 0) {
- 					window.location = branch.data.url;
+ 					//window.location = branch.data.url;
+ 					$location.path(branch.data.url);
  				}
  			},
  			Build: function(features, filtre) {

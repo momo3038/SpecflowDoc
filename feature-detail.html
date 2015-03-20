@@ -1,4 +1,11 @@
-    <h1 class="page-header">{{feature.Feature.Name}}</h1>
+    <div class="page-header"><h2>{{feature.Feature.Name}}</h2>
+
+<div ng-repeat="tag in feature.Feature.Tags">
+ <a href="#" tooltip="Rechercher tous les scenarios marque {{tag}}"><kbd>{{tag}}</kbd></a>
+</div>
+    </div>
+
+
 
     <button class="btn btn-default btn-sm" ng-click="status.openAll = !status.openAll" >{{ status.openAll && 'Fermer' || 'Ouvrir'}} les cas de tests</button>
     <div class="row placeholders">

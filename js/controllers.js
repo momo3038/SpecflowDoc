@@ -1,40 +1,46 @@
-// Nom du 
+    // Nom du 
 
-angular.module('specflowApp.controllers', ['ui.bootstrap'])
+    angular.module('specflowApp.controllers', ['ui.bootstrap'])
     .controller('ListeFeatureCtrl', ['Fonctionnalites', 'Menu', '$scope', '$window', '$log', 'filterFilter', 'Breadcrumb', '$modal',
 
         function(Fonctionnalites, Menu, $scope, $win, $log, filterFilter, Breadcrumb, $modal) {
 
-            //$scope.MenuItems = [];
+                //$scope.MenuItems = [];
 
-            $scope.Menu_handler = function(branch) {
-                Menu.RedirectToFeature(branch);
-            }
+                $scope.Menu_handler = function(branch) {
+                    Menu.RedirectToFeature(branch);
+                }
 
-            $scope.OuvrirAbout = function() {
-                $modal.open({
-                    templateUrl: 'modal.html'
-                });
-            };
+                $scope.OuvrirAbout = function() {
+                    $modal.open({
+                        templateUrl: 'modal.html'
+                    });
+                };
 
-            $scope.MenuItems = [{
-                label: 'Chargement'
-            }]
+                $scope.selectionnerUneFeature = function($item, $model, $label)
+                {
+                    window.location = '#/Documentation/' + $model;
+                }
 
-            $scope.$watch('query', function() {
-                $log.info($scope.query);
-                $scope.MenuItems = Menu.Build($scope.features, $scope.query);
-            });
+                $scope.MenuItems = [{
+                    label: 'Chargement'
+                }]
 
-            Fonctionnalites.RecupererLesFeatures().then(function(data) {
-                $scope.features = data;
-                // $scope.orderProp = "Feature.Name";
-                $scope.MenuItems = Menu.Build($scope.features);
-            });
+                // $scope.$watch('query', function() {
+                //     $log.info($scope.query);
+                //     $scope.MenuItems = Menu.Build($scope.features, $scope.query);
+                // });
 
-            $scope.Ariane = Breadcrumb.SetBreadcrumb([]);
-        }
-    ])
+    Fonctionnalites.RecupererLesFeatures().then(function(data) {
+        $scope.features = data;
+        $scope.featureByName = Fonctionnalites.GenererLeTableauParName($scope.features);
+        $scope.MenuItems = Menu.Build($scope.features);
+    });
+
+    $scope.filterOnSelect = "onTitle";
+    $scope.Ariane = Breadcrumb.SetBreadcrumb([]);
+}
+])
     .controller('DetailFeatureCtrl', ['$scope', '$http', '$routeParams', '$window', 'filterFilter', 'Fonctionnalites', 'Breadcrumb',
         function($scope, $http, $routeParams, $win, filterFilter, Fonctionnalites, Breadcrumb) {
 
@@ -43,26 +49,25 @@ angular.module('specflowApp.controllers', ['ui.bootstrap'])
                 open:false
             };
 
-if($scope.features == null)
-{
-            Fonctionnalites.RecupererLesFeatures().then(function(data) {
-                $scope.features = data;
-                            angular.forEach($scope.features, function(feature) {
-                if (feature.Feature.Name == $routeParams.featureName) {
-                    $scope.feature = feature;
-                    Breadcrumb.SetBreadcrumb($scope.feature.RelativeFolder.split("\\"));
-                }
-            });
-            });
+            if($scope.features == null)
+            {
+                Fonctionnalites.RecupererLesFeatures().then(function(data) {
+                    $scope.features = data;
+                    $scope.featureByName = Fonctionnalites.GenererLeTableauParName($scope.features);
+                });
             }
+            RecupererLeFeature();
 
-            angular.forEach($scope.features, function(feature) {
-                if (feature.Feature.Name == $routeParams.featureName) {
-                    $scope.feature = feature;
+            function RecupererLeFeature()
+            {
+               var index = 0;
+               angular.forEach($scope.featureByName, function(feature) {
+                if (feature == $routeParams.featureName) {
+                    $scope.feature = $scope.features[index];
                     Breadcrumb.SetBreadcrumb($scope.feature.RelativeFolder.split("\\"));
                 }
+                index++;
             });
-
-
-        }
-    ]);
+           }
+       }
+       ]);

@@ -40,7 +40,13 @@
           </ul>
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">
-                        <input type="text" width="500px" placeholder="@tag ou libellé" class="form-control" ng-model="selected" typeahead="feature.Feature.Name for feature in features | filter:$viewValue | limitTo:8"/>
+                    <select ng-model="filterOnSelect" class="form-control">
+                        <option value="onTitle">Uniquement dans le titre</option>
+                         <option value="OnEverything">Dans l'ensemble du feature</option>
+                    </select>
+                <input class="blockMasque" ng-class="{'blockMasque' : filterOnSelect == 'onTitle'}" type="text" width="500px" placeholder="@tag ou libellé" ng-model="selected" typeahead-min-length="1" typeahead-on-select="selectionnerUneFeature($item, $model, $label)" typeahead="feature.Feature.Name for feature in features | filter:$viewValue | limitTo:15"/>
+
+         <input class="blockMasque" ng-class="{'blockVisible' : filterOnSelect == 'onTitle'}" type="text" width="500px" placeholder="@tag ou libellé" ng-model="selected" typeahead-min-length="1" typeahead-on-select="selectionnerUneFeature($item, $model, $label)" typeahead="name for name in featureByName | filter:$viewValue | limitTo:15"/>
                     </div>
                     <button type="submit" class="btn btn-default">Go !</button>
 

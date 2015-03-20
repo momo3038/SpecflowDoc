@@ -1,4 +1,27 @@
 /* Put your css in here */
+.navbar-inverse{
+ background-color: #476D89;
+}
+
+.navbar-inverse .navbar-nav>li>a
+{
+  color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover
+{
+  color: #CCC;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.breadcrumb
+{
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
 
 .stepTitle{
   color: #428bca;
@@ -106,5 +129,17 @@ body {
 }
 .placeholder img {
   border-radius: 50%;
+}
+
+.blockMasque
+{
+  display:none;
+  visibility: hidden;
+}
+
+.blockVisible
+{
+  display: inline;
+  visibility: visible;
 }
 
